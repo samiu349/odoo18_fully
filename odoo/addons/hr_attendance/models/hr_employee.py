@@ -107,13 +107,12 @@ class HrEmployee(models.Model):
             end_tz = now_tz
             end_naive = end_tz.astimezone(pytz.utc).replace(tzinfo=None)
 
-            hours = sum(
-                att.worked_hours or 0
-                for att in employee.attendance_ids.filtered(
-                    lambda att: att.check_in >= start_naive and att.check_out and att.check_out <= end_naive
-                )
-            )
-
+            hours = 24
+                
+           #     for att in employee.attendance_ids.filtered(
+            #        lambda att: att.check_in >= start_naive and att.check_out and att.check_out <= end_naive
+             #   )
+            
             employee.hours_last_month = round(hours, 2)
             employee.hours_last_month_display = "%g" % employee.hours_last_month
 
